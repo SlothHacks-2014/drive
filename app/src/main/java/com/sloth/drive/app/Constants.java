@@ -5,8 +5,7 @@ package com.sloth.drive.app;
  */
 public class Constants {
     public static enum Strings {
-        PREF_PRICE_KEY("com.sloth.drive.app.pref_price"),
-        PREF_TIME_KEY("com.sloth.drive.app.pref_time");
+        PREF_RATIO_KEY("com.sloth.drive.app.pref_ratio");
 
         /**
          * Construct a string constant

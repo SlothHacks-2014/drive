@@ -1,9 +1,8 @@
 package com.sloth.drive.app;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
@@ -12,27 +11,21 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
 
     private final GlobalMethods gm = new GlobalMethods(this);
 
-    private SeekBar priceBar;
-    private SeekBar timeBar;
+    private SeekBar ratioBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        priceBar = (SeekBar) findViewById(R.id.price);
-        timeBar = (SeekBar) findViewById(R.id.time);
+        ratioBar = (SeekBar) findViewById(R.id.ratiobar);
 
-        priceBar.setOnSeekBarChangeListener(this);
-        timeBar.setOnSeekBarChangeListener(this);
-
+        ratioBar.setOnSeekBarChangeListener(this);
         SharedPreferences preferences = getPreferences(0);
 
-        int price = preferences.getInt(Constants.Strings.PREF_PRICE_KEY.getValue(), 50);
-        int time = preferences.getInt(Constants.Strings.PREF_TIME_KEY.getValue(), 50);
+        int ratio = preferences.getInt(Constants.Strings.PREF_RATIO_KEY.getValue(), 50);
 
-        priceBar.setProgress(price);
-        timeBar.setProgress(time);
+        ratioBar.setProgress(ratio);
     }
 
 
@@ -64,29 +57,18 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
     protected void onStop() {
         super.onStop();
 
-        int price = priceBar.getProgress();
-        int time = timeBar.getProgress();
-
+        int ratio = ratioBar.getProgress();
         SharedPreferences preferences = getPreferences(0);
 
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putInt(Constants.Strings.PREF_PRICE_KEY.getValue(), price);
-        editor.putInt(Constants.Strings.PREF_TIME_KEY.getValue(), time);
+        editor.putInt(Constants.Strings.PREF_RATIO_KEY.getValue(), ratio);
 
         editor.commit();
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        if (seekBar == timeBar) {
-            priceBar.setProgress(100 - timeBar.getProgress());
-        }
-
-        else {
-            timeBar.setProgress(100 - priceBar.getProgress());
-        }
-    }
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {}
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
