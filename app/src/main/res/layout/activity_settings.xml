@@ -50,11 +50,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/next"
-        android:layout_marginTop="64dp"
-        android:layout_below="@+id/ratiobar"
-        android:layout_alignRight="@+id/ratiobar"
-        android:layout_alignEnd="@+id/ratiobar"
         android:text="@string/start_route"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/ratiobar"
+        android:layout_alignEnd="@+id/ratiobar" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/destinationText"
+        android:layout_below="@+id/ratiobar"
+        android:layout_marginTop="66dp"
+        android:layout_above="@+id/next"
+        android:layout_toLeftOf="@+id/next"
+        android:hint="Where would you like to go?" />
 
 </RelativeLayout>
