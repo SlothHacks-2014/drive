@@ -8,10 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 
+import org.apache.http.client.HttpClient;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -93,15 +96,8 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
     private class RestTest extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            HttpURLConnection connection;
-            try {
-                connection = (HttpURLConnection) (new URL(strings[0])).openConnection();
-
-                return (String) connection.getContent();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            HttpClient client = new HttpClient();
+            
             return null;
         }
 
