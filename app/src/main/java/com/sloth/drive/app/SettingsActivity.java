@@ -7,10 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -20,6 +18,7 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
     private final GlobalMethods gm = new GlobalMethods(this);
 
     private SeekBar ratioBar;
+    private TextView destinationText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +26,16 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
         setContentView(R.layout.activity_settings);
 
         ratioBar = (SeekBar) findViewById(R.id.ratiobar);
+        destinationText = (TextView) findViewById(R.id.destinationText);
 
         ratioBar.setOnSeekBarChangeListener(this);
         SharedPreferences preferences = getPreferences(0);
 
         int ratio = preferences.getInt(Constants.Strings.PREF_RATIO_KEY.getValue(), 50);
+        String destination = preferences.getString(Constants.Strings.PREF_DESTINATION_KEY.getValue(), "123 Example Way, Pleasantville, CA 12345");
 
         ratioBar.setProgress(ratio);
+        destinationText.setText(destination);
 
         new RestTest().execute("http://api.metro.net/agencies/lametro/stops/6033/predictions/");
     }
@@ -68,11 +70,13 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
         super.onStop();
 
         int ratio = ratioBar.getProgress();
+        String destination = destinationText.getText().toString();
         SharedPreferences preferences = getPreferences(0);
 
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putInt(Constants.Strings.PREF_RATIO_KEY.getValue(), ratio);
+        editor.putString(Constants.Strings.PREF_DESTINATION_KEY.getValue(), destination);
 
         editor.commit();
     }
