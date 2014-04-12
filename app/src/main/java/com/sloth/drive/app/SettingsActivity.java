@@ -9,18 +9,15 @@ import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-<<<<<<< HEAD
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.json.JSONObject;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-=======
->>>>>>> 1072d284f005bfdbc280121410818edcc59c910f
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
 
@@ -41,12 +38,11 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
         SharedPreferences preferences = getPreferences(0);
 
         int ratio = preferences.getInt(Constants.Strings.PREF_RATIO_KEY.getValue(), 50);
-        String destination = preferences.getString(Constants.Strings.PREF_DESTINATION_KEY.getValue(), "123 Example Way, Pleasantville, CA 12345");
+        String destination = preferences.getString(Constants.Strings.PREF_DESTINATION_KEY.getValue(),
+                "");
 
         ratioBar.setProgress(ratio);
         destinationText.setText(destination);
-
-        new RestTest().execute("http://api.metro.net/agencies/lametro/stops/6033/predictions/");
     }
 
 
@@ -103,19 +99,4 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
 
     }
 
-    private class RestTest extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            HttpClient client = new HttpClient();
-            
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            System.out.println(s);
-        }
-    }
 }
