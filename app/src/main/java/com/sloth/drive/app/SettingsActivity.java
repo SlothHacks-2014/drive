@@ -1,11 +1,19 @@
 package com.sloth.drive.app;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
+
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
 
@@ -26,6 +34,8 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
         int ratio = preferences.getInt(Constants.Strings.PREF_RATIO_KEY.getValue(), 50);
 
         ratioBar.setProgress(ratio);
+
+        new RestTest().execute("http://api.metro.net/agencies/lametro/stops/6033/predictions/");
     }
 
 
@@ -78,5 +88,28 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    private class RestTest extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpURLConnection connection;
+            try {
+                connection = (HttpURLConnection) (new URL(strings[0])).openConnection();
+
+                return (String) connection.getContent();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            System.out.println(s);
+        }
     }
 }

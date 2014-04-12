@@ -29,21 +29,32 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Slowest Service"
+        android:text="@string/slowest_service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ratiobar"
+        android:layout_above="@id/ratiobar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView2" />
 
     <TextView
-        android:text=" Highest Price"
+        android:text="@string/highest_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_above="@+id/ratiobar"
+        android:layout_above="@id/ratiobar"
         android:layout_alignRight="@+id/ratiobar"
         android:layout_alignEnd="@+id/ratiobar" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/next"
+        android:layout_marginTop="64dp"
+        android:layout_below="@+id/ratiobar"
+        android:layout_alignRight="@+id/ratiobar"
+        android:layout_alignEnd="@+id/ratiobar"
+        android:text="@string/start_route"
+        />
 
 </RelativeLayout>
