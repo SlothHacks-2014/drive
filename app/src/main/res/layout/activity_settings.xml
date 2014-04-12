@@ -32,7 +32,7 @@
         android:text="Slowest Service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/time"
+        android:layout_above="@+id/ratiobar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -41,9 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_above="@+id/time"
-        android:layout_alignRight="@+id/time"
-        android:layout_alignEnd="@+id/time" />
+        android:layout_above="@+id/ratiobar"
+        android:layout_alignRight="@+id/ratiobar"
+        android:layout_alignEnd="@+id/ratiobar" />
 
 
 </RelativeLayout>
