@@ -9,5 +9,6 @@
     <string name="highest_price">Cheapest Price</string>
     <string name="start_route">Let\'s go\!</string>
     <string name="title_activity_map">Map</string>
+    <string name="title_activity_congratz">CongratzActivity</string>
 
 </resources>

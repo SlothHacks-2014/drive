@@ -1,6 +1,7 @@
 package com.sloth.drive.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.*;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -54,6 +57,7 @@ public class MapActivity extends ActionBarActivity implements
     private Bundle savedInstanceState;
 
     private List<Marker> lyftMarkers = new ArrayList<Marker>();
+    private List<Marker> metros = new ArrayList<Marker>();
 
     private LyftLoader previousLoader;
 
@@ -302,11 +306,33 @@ public class MapActivity extends ActionBarActivity implements
                         .snippet(METRO)
                     );
 
+                    metros.add(marker);
+
                     //map.addPolyline(route);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void changeMetros(View view) {
+        boolean show = ((CheckBox) view).isChecked();
+        showMetro(show);
+    }
+
+    public void showMetro(boolean show) {
+        for(Marker marker : metros) {
+            marker.setVisible(show);
+        }
+    }
+
+    public void purchaseRide(View view) {
+        Intent purchaseIntent = new Intent(this, CongratzActivity.class);
+
+        purchaseIntent.putExtra(Constants.Strings.SERVICE.getValue(),
+                Constants.Services.LYFT.getValue());
+
+        startActivity(purchaseIntent);
     }
 }

@@ -11,13 +11,40 @@ public class Constants {
         BUNDLE_DESTINATION_KEY("com.sloth.drive.app.bundle_destination"),
 
         UBER_PACKAGE("com.ubercab"),
-        METRO_PACKAGE("com.gometro");
+        METRO_PACKAGE("com.gometro"),
+
+        SERVICE("service");
 
         /**
          * Construct a string constant
          * @param value The value of the string
          */
         private Strings(String value) {
+            this.value = value;
+        }
+
+        /**
+         * The string value
+         */
+        private String value;
+
+        /**
+         * Get the string value
+         * @return The string value
+         */
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public static enum Services {
+        LYFT("Lyft");
+
+        /**
+         * Construct a string constant
+         * @param value The value of the string
+         */
+        private Services(String value) {
             this.value = value;
         }
 
