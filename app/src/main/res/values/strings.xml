@@ -11,6 +11,9 @@
     <string name="title_activity_map">Map</string>
     <string name="title_activity_congratz">Congratulations!</string>
     <string name="thank_you">Thank you for choosing</string>
-    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_chat">Carpool Chat</string>
+    <string name="title_activity_carpool">Carpool</string>
+    <string name="send_message">Send message...</string>
+    <string name="message_hint">Message...</string>
 
 </resources>

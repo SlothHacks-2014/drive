@@ -31,6 +31,15 @@
             android:name="com.sloth.drive.app.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity
+            android:name="com.sloth.drive.app.CongratzActivity"
+            android:label="@string/title_activity_congratz" >
+        </activity>
+
+        <activity
+            android:name="com.sloth.drive.app.CarpoolActivity"
+            android:label="@string/title_activity_carpool" >
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -38,15 +47,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC6pkn6XbHp31khy_Fpl9AMnd_ajuv9r88" />
-
-        <activity
-            android:name="com.sloth.drive.app.CongratzActivity"
-            android:label="@string/title_activity_congratz" >
-        </activity>
-        <activity
-            android:name="com.sloth.drive.app.ChatActivity"
-            android:label="@string/title_activity_chat" >
-        </activity>
     </application>
 
 </manifest>

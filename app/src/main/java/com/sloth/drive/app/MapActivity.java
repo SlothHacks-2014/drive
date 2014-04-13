@@ -42,7 +42,7 @@ public class MapActivity extends ActionBarActivity implements
 {
     private static final String METRO = "Metro";
     private static final String TAXI = "Taxi";
-    private static final String UBER = "Uber";
+    private static final String LYFT = "Lyft";
 
     private Marker lastMarkerShown;
 
@@ -149,6 +149,11 @@ public class MapActivity extends ActionBarActivity implements
                     startActivity(getPackageManager().getLaunchIntentForPackage(Constants
                     .Strings.METRO_PACKAGE.getValue()));
                 }
+
+                else if(marker.getSnippet().equals(LYFT)) {
+                    startActivity(new Intent(getPackageManager()
+                            .getLaunchIntentForPackage(Constants.Strings.LYFT_PACKAGE.getValue())));
+                }
                 return true;
             }
         }
@@ -218,17 +223,19 @@ public class MapActivity extends ActionBarActivity implements
     private class LyftLoader extends AsyncTask<String, Void, JSONArray> {
         @Override
         protected JSONArray doInBackground(String... strings) {
-            Header contentType = new BasicHeader("Content-Type", "application/json");
-            Header auth = new BasicHeader("Authorization", "fbAccessToken CAAD6nt9dOocBAPGpMipuieMBiaUkLZCEE7FQHZCvT0s1UqH6ZAXW0ZCaET7ZCkuUVTRBLm9nVsLvlxR7PMyJplYZB3Fuuko6JLBolyOcoVd75ukMEZBi4xwbWJ7QB16KEqAJE0WK1n2CMzrCEfrZAtUYDIXKK4V6rQlR3VScaDSnPkGAAeOND62QCefALgdr22s7b5VuOPueSojN9ZBwov6j1zEEnYjKsQ1Ba3vEWX3uzfgZDZD");
-
-            String result = gm.putHttpRequest(strings[0], new LatLng(//loc.getLastLocation().getLatitude(),
-                    //loc.getLastLocation().getLongitude()), contentType, auth);
-                    34.07030187403868, -118.44679702073337), contentType, auth);
             try {
+                Header contentType = new BasicHeader("Content-Type", "application/json");
+                Header auth = new BasicHeader("Authorization", "fbAccessToken CAAD6nt9dOocBAPGpMipuieMBiaUkLZCEE7FQHZCvT0s1UqH6ZAXW0ZCaET7ZCkuUVTRBLm9nVsLvlxR7PMyJplYZB3Fuuko6JLBolyOcoVd75ukMEZBi4xwbWJ7QB16KEqAJE0WK1n2CMzrCEfrZAtUYDIXKK4V6rQlR3VScaDSnPkGAAeOND62QCefALgdr22s7b5VuOPueSojN9ZBwov6j1zEEnYjKsQ1Ba3vEWX3uzfgZDZD");
+
+                String result = gm.putHttpRequest("marker", strings[0], new LatLng(loc.getLastLocation().getLatitude(),
+                        loc.getLastLocation().getLongitude()), contentType, auth);
+                        //34.07030187403868, -118.44679702073337), contentType, auth);
                 JSONObject jo = new JSONObject(result);
                 return jo.getJSONArray("drivers");
             } catch (JSONException e) {
                 e.printStackTrace();
+            } catch(IllegalStateException e) {
+
             }
 
             return null;
@@ -249,13 +256,17 @@ public class MapActivity extends ActionBarActivity implements
                     JSONObject driver = drivers.getJSONObject(i);
 
                     Marker marker = map.addMarker(new MarkerOptions()
-                    .position(new LatLng(driver.getDouble("lat"),
-                            driver.getDouble("lng")))
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.lyft)));
+                            .position(new LatLng(driver.getDouble("lat"),
+                                    driver.getDouble("lng")))
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.lyft))
+                            .title(LYFT)
+                            .snippet(LYFT));
 
                     lyftMarkers.add(marker);
                 }
             } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
         }
@@ -327,8 +338,9 @@ public class MapActivity extends ActionBarActivity implements
     }
 
     public void purchaseRide(View view) {
-        Intent purchaseIntent = new Intent(this, CongratzActivity.class);
 
+        Intent purchaseIntent = new Intent(this, CongratzActivity.class);
+        
         purchaseIntent.putExtra(Constants.Strings.SERVICE.getValue(),
                 Constants.Ints.LYFT.getValue());
 

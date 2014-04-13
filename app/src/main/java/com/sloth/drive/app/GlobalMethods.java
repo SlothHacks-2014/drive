@@ -11,6 +11,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ByteArrayEntity;
@@ -36,7 +37,7 @@ public class GlobalMethods {
         this.context = context;
     }
 
-    public String putHttpRequest(String url, LatLng coords, Header... headers) {
+    public String putHttpRequest(String value, String url, LatLng coords, Header... headers) {
         HttpClient client = new DefaultHttpClient();
         HttpPut request = new HttpPut(url);
 
@@ -45,7 +46,39 @@ public class GlobalMethods {
             coordinates.put("lat", coords.latitude);
             coordinates.put("lng", coords.longitude);
 
-            marker.put("marker", coordinates);
+            if(value.equals("startLocation")) {
+                marker.put("id", 185005387);
+            }
+            marker.put(value, coordinates);
+
+            request.setEntity(new ByteArrayEntity(marker.toString().getBytes("UTF8")));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < headers.length; i++) {
+            request.addHeader(headers[i]);
+        }
+
+        return sendRequest(client, request);
+    }
+
+    public String postHttpRequest(String value, String url, LatLng coords, Header... headers) {
+        HttpClient client = new DefaultHttpClient();
+        HttpPost request = new HttpPost(url);
+
+        JSONObject coordinates = new JSONObject(), marker = new JSONObject();
+        try {
+            coordinates.put("lat", coords.latitude);
+            coordinates.put("lng", coords.longitude);
+
+            if(value.equals("startLocation")) {
+                marker.put("id", 185005387);
+            }
+            marker.put(value, coordinates);
 
             request.setEntity(new ByteArrayEntity(marker.toString().getBytes("UTF8")));
 
