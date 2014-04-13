@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,8 +6,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="com.sloth.drive.app.SettingsActivity">
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/address_match_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.MapFragment"
+        />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical">
 
     <SeekBar
         android:id="@+id/ratiobar"
@@ -15,9 +28,9 @@
         android:layout_height="wrap_content"
         android:progress="100"
         android:secondaryProgress="100"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="@string/slowest_service"
@@ -37,14 +50,24 @@
         android:layout_alignRight="@+id/ratiobar"
         android:layout_alignEnd="@+id/ratiobar" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ratiobar"
+        android:layout_marginTop="50dp">
+
+    </LinearLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="launchMap"
         android:id="@+id/next"
         android:text="@string/start_route"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/ratiobar"
-        android:layout_alignEnd="@+id/ratiobar" />
+        android:layout_alignTop="@+id/destinationText"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -52,10 +75,13 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/destinationText"
-        android:layout_below="@+id/ratiobar"
-        android:layout_marginTop="66dp"
-        android:layout_above="@+id/next"
-        android:layout_toLeftOf="@+id/next"
-        android:hint="Where would you like to go?" />
+        android:hint="Where would you like to go?"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
+
+</FrameLayout>

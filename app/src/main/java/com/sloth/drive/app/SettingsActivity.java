@@ -1,23 +1,28 @@
 package com.sloth.drive.app;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
 
@@ -25,6 +30,7 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
 
     private SeekBar ratioBar;
     private TextView destinationText;
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,45 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
 
         ratioBar.setProgress(ratio);
         destinationText.setText(destination);
+
+        map = ((MapFragment) getFragmentManager()
+                .findFragmentById(R.id.address_match_map)).getMap();
+
+        destinationText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    Geocoder gc = new Geocoder(getApplicationContext());
+
+                    map.clear();
+
+                    try {
+                        Address address = gc.getFromLocationName(destinationText
+                                .getText().toString(), 1).get(0);
+
+                        LatLng location =
+                                new LatLng(address.getLatitude(), address.getLongitude());
+
+                        map.addMarker(new MarkerOptions()
+                                .position(location));
+
+                        map.moveCamera(CameraUpdateFactory.newLatLng(location));
+                        map.moveCamera(CameraUpdateFactory.zoomTo(11.5f));
+
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams
+                                .SOFT_INPUT_STATE_HIDDEN);
+
+                        destinationText.clearFocus();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
     }
 
 
@@ -84,6 +129,15 @@ public class SettingsActivity extends ActionBarActivity implements SeekBar.OnSee
         editor.putString(Constants.Strings.PREF_DESTINATION_KEY.getValue(), destination);
 
         editor.commit();
+    }
+
+    public void launchMap(View view) {
+        Bundle data = new Bundle();
+        data.putInt(Constants.Strings.BUNDLE_RATIO_KEY.getValue(), ratioBar.getProgress());
+        data.putString(Constants.Strings.BUNDLE_DESTINATION_KEY.getValue(),
+                destinationText.getText().toString());
+
+        startActivity(new Intent(this, MapActivity.class).putExtras(data));
     }
 
     @Override

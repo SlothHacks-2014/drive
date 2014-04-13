@@ -6,7 +6,12 @@ package com.sloth.drive.app;
 public class Constants {
     public static enum Strings {
         PREF_RATIO_KEY("com.sloth.drive.app.pref_ratio"),
-        PREF_DESTINATION_KEY("com.sloth.drive.app.pref_destination");
+        PREF_DESTINATION_KEY("com.sloth.drive.app.pref_destination"),
+        BUNDLE_RATIO_KEY("com.sloth.drive.app.bundle_ratio"),
+        BUNDLE_DESTINATION_KEY("com.sloth.drive.app.bundle_destination"),
+
+        UBER_PACKAGE("com.ubercab"),
+        METRO_PACKAGE("com.gometro");
 
         /**
          * Construct a string constant
