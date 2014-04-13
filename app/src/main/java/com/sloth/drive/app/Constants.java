@@ -12,6 +12,7 @@ public class Constants {
 
         UBER_PACKAGE("com.ubercab"),
         METRO_PACKAGE("com.gometro"),
+        LYFT_PACKAGE("me.lyft.android"),
 
         SERVICE("service");
 
@@ -37,33 +38,9 @@ public class Constants {
         }
     }
 
-    public static enum Services {
-        LYFT("Lyft");
-
-        /**
-         * Construct a string constant
-         * @param value The value of the string
-         */
-        private Services(String value) {
-            this.value = value;
-        }
-
-        /**
-         * The string value
-         */
-        private String value;
-
-        /**
-         * Get the string value
-         * @return The string value
-         */
-        public String getValue() {
-            return value;
-        }
-    }
 
     public static enum Ints {
-        ;
+        LYFT(R.drawable.lyft_logo);
 
         /**
          * Construct a integer constant

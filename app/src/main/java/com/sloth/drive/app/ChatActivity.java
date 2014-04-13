@@ -1,28 +1,16 @@
 package com.sloth.drive.app;
 
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-
-public class CongratzActivity extends ActionBarActivity {
+public class ChatActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_congratz);
-
-        int icon = getIntent().getExtras().getInt(Constants.Strings.SERVICE.getValue());
-
-        ImageView logo = (ImageView) findViewById(R.id.final_token);
-
-        logo.setImageResource(icon);
+        setContentView(R.layout.activity_chat);
     }
 
 
@@ -30,7 +18,7 @@ public class CongratzActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.congratz, menu);
+        getMenuInflater().inflate(R.menu.chat, menu);
         return true;
     }
 
@@ -44,15 +32,6 @@ public class CongratzActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void openLyft(View view) {
-        startActivity(new Intent(getPackageManager()
-                .getLaunchIntentForPackage(Constants.Strings.LYFT_PACKAGE.getValue())));
-    }
-
-    public void openChat(View view) {
-        startActivity(new Intent(this, ChatActivity.class));
     }
 
 }

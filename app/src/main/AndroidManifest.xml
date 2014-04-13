@@ -43,6 +43,10 @@
             android:name="com.sloth.drive.app.CongratzActivity"
             android:label="@string/title_activity_congratz" >
         </activity>
+        <activity
+            android:name="com.sloth.drive.app.ChatActivity"
+            android:label="@string/title_activity_chat" >
+        </activity>
     </application>
 
 </manifest>

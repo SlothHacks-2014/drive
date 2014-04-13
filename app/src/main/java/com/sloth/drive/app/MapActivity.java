@@ -1,8 +1,6 @@
 package com.sloth.drive.app;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.*;
 import android.os.AsyncTask;
@@ -20,7 +18,6 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -253,7 +250,8 @@ public class MapActivity extends ActionBarActivity implements
 
                     Marker marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(driver.getDouble("lat"),
-                            driver.getDouble("lng"))));
+                            driver.getDouble("lng")))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.lyft)));
 
                     lyftMarkers.add(marker);
                 }
@@ -301,9 +299,10 @@ public class MapActivity extends ActionBarActivity implements
                     route.add(new LatLng(latitude, longitude));
 
                     Marker marker = map.addMarker(new MarkerOptions()
-                        .position(new LatLng(latitude, longitude))
-                        .title(name)
-                        .snippet(METRO)
+                            .position(new LatLng(latitude, longitude))
+                            .title(name)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus))
+                            .snippet(METRO)
                     );
 
                     metros.add(marker);
@@ -331,7 +330,7 @@ public class MapActivity extends ActionBarActivity implements
         Intent purchaseIntent = new Intent(this, CongratzActivity.class);
 
         purchaseIntent.putExtra(Constants.Strings.SERVICE.getValue(),
-                Constants.Services.LYFT.getValue());
+                Constants.Ints.LYFT.getValue());
 
         startActivity(purchaseIntent);
     }
